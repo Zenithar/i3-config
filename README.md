@@ -14,6 +14,7 @@
 * dmenu - Super-P launcher
 * pavucontrol - pulseaudio mixer
 * alsamixer
+* volnoti-hccu
 ### from xorg
 * setxkbmap - setting keyboard layout
 * xmodmap - custom key changes
