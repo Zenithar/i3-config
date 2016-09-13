@@ -17,7 +17,7 @@ URxvt.keysym.C-equal:     perl:font-size:increase
 URxvt.keysym.C-minus:   perl:font-size:decrease
 
 
-URxvt.font        : xft:Terminus:pixelsize=10
+URxvt.font        : xft:Hack:pixelsize=10
 URxvt.termName    : rxvt-256color
 URxvt.iso14755    : false
 
@@ -26,6 +26,12 @@ URxvt.urgentOnBell: true
 URxvt.saveLines   : 12000
 URxvt.scrollBar   : false
 URxvt.scrollstyle : rxvt
+
+URxvt.background  : black
+URxvt.foreground  : white
+URxvt.scrollBar   : false
+URxvt.shading     : 85
+
 
 ! XFT
 Xft.lcdfilter : lcddefault

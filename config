@@ -1,3 +1,29 @@
+exec xbacklight -set 40 &
+
+exec xset -b
+exec xrdb -merge ~/.i3/xresources
+exec volnoti
+
+exec unclutter -root -visible &
+#exec autocutsel -fork &
+exec autocutsel -selection PRIMARY -fork &
+
+exec eval `dbus-launch --sh-syntax --exit-with-session`
+
+#color temparature
+#exec redshift -l 39.57:76.3 -m randr -t 5500:4500 -g 0.9:0.9:0.9 &
+
+exec urxvtd &
+
+#notification
+exec dunst -config ~/.i3/dunstrc &
+
+exec udiskie &
+exec --no-startup-id nm-applet &
+exec nitrogen --restore &
+
+##############################################################################################################################
+
 set $mod Mod4
 
 font pango:Terminus 11px
@@ -30,7 +56,7 @@ bindsym $mod+p exec "dmenu_run -nb black -p run"
 bindsym $mod+Shift+p exec "~/.bin/pass-autotype-dmenu"
 
 # screen lock
-bindsym Control+$mod+l exec slimlock
+bindsym Control+$mod+l exec "i3lock-fancy -gpf Hack-Regular"
 
 # change focus
 bindsym $mod+h focus left
@@ -74,8 +100,8 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+6 workspace back_and_forth
 
 # switch to workspace
-bindsym $mod+q workspace 1: q
-bindsym $mod+w workspace 2: w
+bindsym $mod+a workspace 1: a
+bindsym $mod+z workspace 2: z
 bindsym $mod+e workspace 3: e
 bindsym $mod+r workspace 4: r
 bindsym $mod+t workspace 5: t
@@ -85,8 +111,8 @@ bindsym $mod+i workspace 8: i
 bindsym $mod+o workspace 9: o
 
 # move focused container to workspace
-bindsym $mod+Shift+q move container to workspace 1: q
-bindsym $mod+Shift+w move container to workspace 2: w
+bindsym $mod+Shift+a move container to workspace 1: a
+bindsym $mod+Shift+z move container to workspace 2: z
 bindsym $mod+Shift+e move container to workspace 3: e
 bindsym $mod+Shift+r move container to workspace 4: r
 bindsym $mod+Shift+t move container to workspace 5: t
@@ -95,9 +121,9 @@ bindsym $mod+Shift+u move container to workspace 7: u
 bindsym $mod+Shift+i move container to workspace 8: i
 bindsym $mod+Shift+o move container to workspace 9: o
 
-bindsym $mod+z reload
+bindsym $mod+q reload
 bindsym $mod+Shift+x restart
-bindsym $mod+Shift+z exit
+bindsym $mod+Shift+q exit
 
 mode "resize" {
         bindsym h   resize shrink width 10 px or 10 ppt
@@ -115,24 +141,27 @@ mode "resize" {
 bindsym $mod+s mode "resize"
 
 # multimedia keys
-bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '3%+'"
-bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '1%-'"
-bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
-bindsym XF86AudioMicMute exec "amixer -D pulse sset Capture toggle"
+bindsym XF86AudioRaiseVolume exec "~/.i3/bin/volume up"
+bindsym XF86AudioLowerVolume exec "~/.i3/bin/volume down"
+bindsym XF86AudioMute exec "~/.i3/bin/volume mute"
 
-bindsym XF86AudioPlay exec "~/.bin/player toggle"
-bindsym XF86AudioStop exec "~/.bin/player stop"
-bindsym XF86AudioNext exec "~/.bin/player next"
-bindsym XF86AudioPrev exec "~/.bin/player previous"
+bindsym XF86AudioPlay exec --no-startup-id playcontrols toggle
+bindsym XF86AudioStop exec --no-startup-id playcontrols stop
+bindsym XF86AudioPrev exec --no-startup-id playcontrols prev
+bindsym XF86AudioNext exec --no-startup-id playcontrols next
+
+bindsym XF86MonBrightnessDown exec "~/.i3/bin/brightness down"
+bindsym XF86MonBrightnessUp exec "~/.i3/bin/brightness up"
 
 bindsym XF86KbdBrightnessDown exec "sudo /opt/kbdlight/bin/kbdlight -"
 bindsym XF86KbdBrightnessUp exec "sudo /opt/kbdlight/bin/kbdlight +"
+
 bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/TouchpadOff/ {print ($3+1)%2}')"
 
 bindsym XF86Display exec "arandr"
 
-bindsym $mod+a exec "urxvtc -e alsamixer"
-bindsym $mod+Shift+a exec "pavucontrol"
+bindsym $mod+w exec "terminator -x alsamixer"
+bindsym $mod+Shift+w exec "pavucontrol"
 
 bar {
         position top
@@ -145,3 +174,8 @@ bar {
         }
 }
 
+smart_borders on
+gaps inner 10
+#gaps outer 5
+#
+exec compton --config ~/.i3/compton.conf -b &
